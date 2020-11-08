@@ -3,16 +3,18 @@
 
 ## Установка
 ```sh
-$ npm install github:MegaVasiliy007/sdc-api
+$ npm install github:sqdsh/sdc-api
 ```
-После установки, враппер будет определяться как `@megavasiliy007/sdc-api`
+После установки, враппер будет определяться как `sdc-api`
+
+Версия на TypeScript: **[click](https://github.com/sqdsh/sdc-type)**
 
 ## Инициализация враппера
 ```js
-let apiKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU2MzIwMzA3Mjk5MDY0MjE4NiIsInBlcm1zIjowLCJpYXQiOjE1NzcxMjE4NDZ9.Y5qSkDQhOLsLbE6tcyp9e4ua0FtCrN1ykBBe0rJ9TXo";
+const apiKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU2MzIwMzA3Mjk5MDY0MjE4NiIsInBlcm1zIjowLCJpYXQiOjE1NzcxMjE4NDZ9.Y5qSkDQhOLsLbE6tcyp9e4ua0FtCrN1ykBBe0rJ9TXo";
 // API ключ можно получить на странице редактирования вашего бота
 
-const SDC = require("@megavasiliy007/sdc-api");
+const SDC = require("sdc-api");
 const client = new SDC(apiKey);
 ```
 
@@ -56,4 +58,4 @@ client.guildRated("640586112624230450")
 client.setAutoPost(bot);
 ```
 
-Все методы враппера: **[клик](https://github.com/MegaVasiliy007/sdc-api/blob/master/examples/METHODS.md)**.
+Все методы враппера: **[клик](https://github.com/sqdsh/sdc-api/blob/master/examples/METHODS.md)**.
