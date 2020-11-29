@@ -2,12 +2,21 @@
 Небольшой модуль-враппер который позволяет вам легко взаимодействовать с [Server-Discord API](https://docs.server-discord.com).
 
 ## Установка
+Варианты установки:
+
+1. Можно установить как пакет:
 ```sh
 $ npm install github:sqdsh/sdc-api
 ```
 После установки, враппер будет определяться как `sdc-api`
 
 Версия на TypeScript: **[click](https://github.com/sqdsh/sdc-type)**
+
+2. Можно установить прямиком в папку с проектом:
+```sh
+$ git clone https://github.com/sqdsh/sdc-api.git
+$ cd sdc-api
+```
 
 ## Инициализация враппера
 ```js
@@ -54,8 +63,14 @@ client.guildRated("640586112624230450")
         } */
     });
 
-// Отправлять статистику на мониторинг каждые 30 минут
-client.setAutoPost(bot);
+// Отправить статистику бота на мониторинг
+client.updateStat(client.user.id, { servers: 15450, shards: 8 })
+    .then((data) => {
+        console.info(data);
+        /* {
+            status: true
+        } */
+    });
 ```
 
 Все методы враппера: **[клик](https://github.com/sqdsh/sdc-api/blob/master/examples/METHODS.md)**.

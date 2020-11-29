@@ -1,9 +1,8 @@
 /* jshint esversion: 6 */
 
-const botsPath = "https://bots.server-discord.com";
-const { stringify } = require('querystring')
-	, { request } = require('https')
-;
+const
+	{ stringify } = require('querystring'), 
+    { request } = require('https');
 
 /**
  * @function
@@ -25,6 +24,10 @@ function send(params, postData) {
 	});
 }
 
+/**
+ * @author SQDSH
+ * @module
+ */
 module.exports = {
 	/**
 	 * @function
@@ -39,27 +42,5 @@ module.exports = {
 
 			return send(params, postData);
 		} else return send(params);
-	},
-
-	/**
-	 * @function
-	 * @param client
-	 * @param {Object} opt
-	 */
-	sendStat: (client, opt) => {
-		let data = { servers: 0, shards: 0 };
-
-		if (client.shard && client.shard.count !== 1) data.shards = client.shard.count;
-		else if (client.shards && client.shards.size !== 1) data.shards = client.shards.size;
-
-		if (client.guilds.cache) data.servers = client.guilds.cache.size;
-		else data.servers = client.guilds.size;
-
-		opt.body = data;
-		module.exports.request(opt)
-			.then((r) => {
-				if(r.error) return console.error("[sdc-api | Авто-пост] Ошибка в работе\n" + r.error.message);
-				else return console.info("[sdc-api | Авто-пост] Статистика для " + client.user.tag + " опубликована на мониторинг.\n" + encodeURI(botsPath + "/" + client.user.id));
-			}, (e) => console.error("[sdc-api | Авто-пост] Ошибка в работе | ", e));
 	}
 };

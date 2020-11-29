@@ -1,18 +1,12 @@
 /* jshint esversion: 6 */
 
-const { version } = require('./package')
-		, { request, sendStat } = require('./request')
-		, isLib = (library, client) => {try {const lib = require.cache[require.resolve(library)];return lib && client instanceof lib.exports.Client;} catch (e) {return false;}}
-		, isSupported = client => isLib('discord.js', client) || isLib('eris', client)
-		, paths = {
-				hostname: "api.server-discord.com",
-				botsPath: "https://bots.server-discord.com",
-				github: "https://github.com/MegaVasiliy007/sdc-api"
-			}
-;
+const
+	{ version } = require('./package'),
+	{ request } = require('./request'),
+	paths = { hostname: "api.server-discord.com" };
 
 /**
- * @author SDC
+ * @author SQDSH
  * @module
  * @param {string} token
  */
@@ -23,12 +17,13 @@ module.exports = function (token) {
 	 * @function
 	 * @param {string} uri
 	 * @param {string} method
-	 * @returns {{path: string, headers: {Authorization: string, 'User-Agent': string}, hostname: string, method: string}|void}
+	 * @param {object} data
+	 * @returns {{path: string, headers: {Authorization: string, 'User-Agent': string}, hostname: string, method: string, body: object}|void}
 	 */
-	let options = (uri, method = "GET") => {
+	let options = (uri, method = "GET", data = null) => {
 		if (!uri) return console.error("[sdc-api] Ошибка в работе модуля | Не указан адрес метода.");
 
-		return {
+		let toRequest = {
 			method: method,
 			hostname: paths.hostname,
 			path: "/v2" + uri,
@@ -37,6 +32,9 @@ module.exports = function (token) {
 				'Authorization': 'SDC ' + token
 			}
 		};
+		
+		if(data !== null) toRequest.body = data;
+		return toRequest;
 	};
 
 	/**
@@ -101,17 +99,15 @@ module.exports = function (token) {
 
 	/**
 	 * @function
-	 * @param client
-	 * @param {number} interval
-	 * @returns {number|void}
+	 * @param {string} botID
+	 * @param {object} data
+	 * @returns {PromiseLike<Object>|Promise<Object>|void}
 	 */
-	this.setAutoPost = (client, interval = 1800000) => {
-		if(!client) return console.error("[sdc-api] Ошибка аргументов | Не указан клиент бота!");
-		if(!isSupported(client)) return console.error('[sdc-api] Ошибка аргументов | Библиотека бота не поддерживается! Пожалуйста, сообщите нам на GitHub:\n' + encodeURI(`${paths.github}/issues`));
-
-		if(interval && interval < 900000) return console.error("[sdc-api] Ошибка аргументов | Отправка статистики возможна не менее одного раза в 15 минут!");
-
-		sendStat(client, options(`/bots/${client.user.id}/stats`, 'POST'));
-		return setInterval(() => sendStat(client, options(`/bots/${client.user.id}/stats`, 'POST')), interval);
+	this.updateStat = (botID, data = { servers: 0, shards: 0 }) => {
+		if(!botID) return console.error("[sdc-api] Ошибка аргументов | Не указан ID бота!");
+		if(!data.servers || !data.shards) return console.error("[sdc-api] Ошибка аргументов | В объекте не обнаружены servers и shards!");
+		
+		return request(options(`/bots/${botID}/stats`, "POST", data))
+			.then((r) => r, (e) => console.error("[sdc-api] Ошибка в работе | ", e));
 	};
 };
