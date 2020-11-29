@@ -5,10 +5,12 @@
 Варианты установки:
 
 1. Можно установить как пакет:
-```sh
-$ npm install github:sqdsh/sdc-api
-```
-После установки, враппер будет определяться как `sdc-api`
+
+[
+    ![image](https://nodei.co/npm/sdc-api-wrapper.png?downloads=true&stars=true)
+](https://www.npmjs.com/package/sdc-api-wrapper)
+
+После установки, враппер будет определяться как `sdc-api-wrapper`
 
 Версия на TypeScript: **[click](https://github.com/sqdsh/sdc-type)**
 
