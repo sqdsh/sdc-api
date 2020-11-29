@@ -1,5 +1,5 @@
 {
-    "name": "sdc-api",
+    "name": "sdc-api-wrapper",
     "version": "1.1.7",
     "description": "Простая и удобная библиотека для работы с API сайта server-discord.com",
     
