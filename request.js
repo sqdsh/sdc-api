@@ -14,7 +14,7 @@ function send(params, postData) {
 	return new Promise((resolve, reject) => {
 		let req = request(params, (res) => {
 			res.setEncoding('utf8');
-			res.on('data', (data) => resolve( JSON.parse(data) ));
+			res.on('data', (data) => resolve( data ));
 		});
 
 		req.on('error', reject);
