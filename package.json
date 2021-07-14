@@ -1,6 +1,6 @@
 {
     "name": "sdc-api-wrapper",
-    "version": "1.1.9",
+    "version": "1.1.9-this-is-my-library",
     "description": "Простая и удобная библиотека для работы с API сайта server-discord.com",
     
     "main": "sdc.js",
